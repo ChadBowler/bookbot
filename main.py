@@ -42,7 +42,7 @@ def print_report(text, path):
     print(f"--- Begin report of {path} ---\n")
     print(f"{get_number_of_words(text)} words found in the document\n")
     for char in char_dict:
-        print(f"The '{char}' character was found {char_dict[char]} times\n")
+        print(f"The '{char}' character was found {char_dict[char]} times")
     print("--- End Report ---")
 
 
