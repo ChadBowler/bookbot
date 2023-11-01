@@ -3,7 +3,7 @@ import re
 def main():
     book_path = "books/frankenstein.txt"
     text = get_book_text(book_path)
-    print(get_char_count(text))
+    print_report(text, book_path)
 
 def get_book_text(path):
     with open(path) as f:
@@ -25,15 +25,25 @@ def get_word_count(text):
     return word_list
 
 def get_char_count(text):
-    chars = list(text.lower())
-    char_set = set(chars)
-    char_dict = {}
-    for char in char_set:
-        char_dict[char] = 0
-    for char in chars:
-        char_dict[char] += 1
+    chars = {}
+    for c in text:
+        lowered = c.lower()
+        if lowered.isalpha():
+            if lowered in chars:
+                chars[lowered] += 1
+            else:
+                chars[lowered] = 1
+    sorted_chars = sorted(chars.items(), key=lambda x:x[1], reverse=True)
+    char_dict = dict(sorted_chars)
     return char_dict
 
+def print_report(text, path):
+    char_dict = get_char_count(text)
+    print(f"--- Begin report of {path} ---\n")
+    print(f"{get_number_of_words(text)} words found in the document\n")
+    for char in char_dict:
+        print(f"The '{char}' character was found {char_dict[char]} times\n")
+    print("--- End Report ---")
 
 
 main()
